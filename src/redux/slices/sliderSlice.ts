@@ -29,5 +29,4 @@ export const sliderSlice = createSlice({
 });
 
 export const { nextSlide, prevSlide, dotSlide } = sliderSlice.actions;
-export const selectCount = (state: RootState) => state.slider;
 export default sliderSlice.reducer;

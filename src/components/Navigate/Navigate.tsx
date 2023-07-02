@@ -1,10 +1,13 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
 import clothes from "../../assets/images/clothes.jpg";
+import { useAppDispatch } from "../../redux/store";
+import { filterProducts } from "../../redux/slices/productsSlice";
+import { Link } from "react-router-dom";
 
 const Navigate = () => {
   const btn = [
-    "Hobbies",
+    "Hoodies",
     "Dresses",
     "Suits",
     "T-Shirts",
@@ -12,20 +15,24 @@ const Navigate = () => {
     "Jackets",
     "Bags",
   ];
+  const dispatch = useAppDispatch();
   return (
     <div>
       <div className="flex items-center justify-center py-8">
         {btn.map((item, idx) => (
           <div key={idx} className="mr-4">
-            <Button
-              color="gray"
-              size="lg"
-              variant="outlined"
-              ripple={true}
-              className="hover:bg-green-300 duration-300 ease-in-out"
-            >
-              {item}
-            </Button>
+            <Link to={`/filters/${item}`}>
+              <Button
+                color="gray"
+                size="lg"
+                variant="outlined"
+                ripple={true}
+                className="hover:bg-green-300 duration-300 ease-in-out"
+                onClick={() => dispatch(filterProducts(item))}
+              >
+                {item}
+              </Button>
+            </Link>
           </div>
         ))}
       </div>

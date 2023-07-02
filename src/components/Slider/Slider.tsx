@@ -6,7 +6,7 @@ import { sliderData } from "../../assets/data/data";
 const Slider = () => {
   const slideIndex = useAppSelector((state) => state.slider.value);
   const dispatch = useAppDispatch();
-  console.log(slideIndex);
+
   return (
     <div className="relative pb-4">
       <div>
