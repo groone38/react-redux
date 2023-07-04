@@ -1,14 +1,23 @@
-import React, { useState } from "react";
-import { useAppSelector } from "../../redux/store";
+import React, { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { Option, Select } from "@material-tailwind/react";
 import { Tooltip, Button } from "@material-tailwind/react";
+import { addToCart } from "../../redux/slices/cartSlice";
+import { fetchProduct } from "../../redux/slices/productsSlice";
 
 const Product = () => {
   const singleProduct = useAppSelector((state) => state.products.singleProduct);
+  const dispatch = useAppDispatch();
   const [size, setSize] = useState<string | undefined>(
     singleProduct[0].size ? singleProduct[0].size[0] : ""
   );
-  const [color, setColor] = useState<string | undefined>();
+  const [color, setColor] = useState<string | undefined>(
+    singleProduct[0].color[0]
+  );
+
+  useEffect(() => {
+    dispatch(fetchProduct());
+  }, []);
 
   return (
     <div>
@@ -66,7 +75,25 @@ const Product = () => {
               )}
             </div>
             <Tooltip content="Add to Cart" placement="bottom">
-              <Button color="gray" size="lg" variant="outlined">
+              <Button
+                color="gray"
+                size="lg"
+                variant="outlined"
+                onClick={() =>
+                  dispatch(
+                    addToCart({
+                      id: item.id,
+                      price: item.price,
+                      name: item.name,
+                      img: item.img,
+                      amount: 1,
+                      color: color,
+                      size: size,
+                      totalPrice: item.price,
+                    })
+                  )
+                }
+              >
                 Add to Cart
               </Button>
             </Tooltip>

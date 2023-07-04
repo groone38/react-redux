@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storeData } from "../../assets/data/data";
 
 export interface InitialStateProps {
@@ -16,12 +16,24 @@ export interface InitialStateProps {
 interface InitialState {
   filters: InitialStateProps[];
   singleProduct: InitialStateProps[];
+  products: any;
 }
 
 const initialState: InitialState = {
   filters: [],
   singleProduct: [],
+  products: [],
 };
+
+export const fetchProduct = createAsyncThunk(
+  "product/fetch",
+  async (thunkAPI) => {
+    const data = await fetch("https://fakestoreapi.com/products", {
+      method: "GET",
+    }).then((res) => res.json());
+    return data;
+  }
+);
 
 export const productsSlice = createSlice({
   name: "products",
@@ -45,6 +57,11 @@ export const productsSlice = createSlice({
         console.log(error);
       }
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(fetchProduct.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
   },
 });
 
