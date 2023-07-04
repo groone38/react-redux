@@ -9,10 +9,11 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../redux/store";
-import { singleProduct } from "../../redux/slices/productsSlice";
+import { InitialStateProps } from "../../redux/slices/productsSlice";
+// import { singleProduct } from "../../redux/slices/productsSlice";
 
 interface FilterCardProps {
-  id: string;
+  id: number;
   name: string;
   img: string;
   text: string;
@@ -23,30 +24,29 @@ interface FilterCardProps {
 
 const FilterCard = ({
   id,
-  name,
-  img,
-  text,
+  category,
+  description,
+  image,
   price,
-  colors,
-  type,
-}: FilterCardProps) => {
-  const dispatch = useAppDispatch();
-
+  rating,
+  title,
+}: InitialStateProps) => {
   return (
-    <Link to={`/filters/${type}/${id}`}>
-      <Card className="mt-6 w-96" onClick={() => dispatch(singleProduct(id))}>
+    <Link to={`/filters/${category}/${id}`} className="w-[20rem]">
+      {/* <Card className="mt-6 w-96" onClick={() => dispatch(singleProduct(id))}> */}
+      <Card className="mt-6 w-full h-full justify-between">
         <CardHeader color="blue-gray" className="relative h-96">
-          <img src={img} alt={name} />
+          <img className="object-cover h-full w-full" src={image} alt={title} />
         </CardHeader>
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2">
-            {name}
+            {title}
           </Typography>
-          <Typography>{text}</Typography>
+          <Typography>{description}</Typography>
         </CardBody>
         <CardFooter divider className="flex items-center justify-between py-3">
           <Typography>{price}</Typography>
-          <Typography variant="small" color="gray" className="flex gap-1">
+          {/* <Typography variant="small" color="gray" className="flex gap-1">
             {colors.map((item, idx) => (
               <i
                 className="fas fa-map-marker-alt fa-sm mt-[3px] p-2 rounded-full mr-4"
@@ -54,7 +54,7 @@ const FilterCard = ({
                 style={{ background: item }}
               />
             ))}
-          </Typography>
+          </Typography> */}
           {/* <Button>Read More</Button> */}
         </CardFooter>
       </Card>

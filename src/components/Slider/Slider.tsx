@@ -8,7 +8,7 @@ const Slider = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="relative pb-4">
+    <div className="relative">
       <div>
         {sliderData.map((item, idx) => (
           <div
