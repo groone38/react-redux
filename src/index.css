@@ -9,3 +9,39 @@
   padding: 0;
   margin: 0;
 }
+
+@media (max-width: 1280px) {
+  h2,
+  h3,
+  h4,
+  p,
+  span,
+  a,
+  button {
+    font-size: calc(2px + 1vw) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  h2,
+  h3,
+  h4,
+  p,
+  span,
+  a,
+  button {
+    font-size: calc(2px + 1vw) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  h2,
+  h3,
+  h4,
+  p,
+  span,
+  a,
+  button {
+    font-size: calc(2px + 1.5vw) !important;
+  }
+}
