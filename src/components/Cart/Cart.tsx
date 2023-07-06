@@ -20,17 +20,21 @@ const Cart = ({ openModal, setOpen }: CartProps) => {
     (state) => state.cart
   );
   return (
-    <>
+    <div className="z-10">
       <Fragment>
         <Dialog
           open={openModal}
           handler={() => setOpen(false)}
+          animate={{
+            mount: { scale: 1, y: 0 },
+            unmount: { scale: 0.9, y: -100 },
+          }}
           className="h-2/3 overflow-hidden"
         >
           <DialogHeader>Shopping bag</DialogHeader>
           <DialogBody
             divider
-            className="flex flex-col px-3 overflow-auto h-3/4"
+            className="flex flex-col px-3 overflow-auto h-3/4 "
           >
             {cart.length > 0 ? (
               cart.map((item) => <Product {...item} key={item.id} />)
@@ -56,7 +60,7 @@ const Cart = ({ openModal, setOpen }: CartProps) => {
           </DialogFooter>
         </Dialog>
       </Fragment>
-    </>
+    </div>
   );
 };
 

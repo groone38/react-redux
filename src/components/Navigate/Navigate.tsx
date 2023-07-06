@@ -2,60 +2,48 @@ import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import clothes from "../../assets/images/clothes.jpg";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-// import { filterProducts } from "../../redux/slices/productsSlice";
 import { Link } from "react-router-dom";
-import { fetchFilters, fetchProduct } from "../../redux/slices/productsSlice";
+import { fetchFilters } from "../../redux/slices/productsSlice";
+import Loader from "../Loader/Loader";
 
 const Navigate = () => {
-  const filetrs = useAppSelector((state) => state.products.filters);
+  const filters = useAppSelector((state) => state.products.filters);
+  const loading = useAppSelector((state) => state.products.loading);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchFilters());
   }, []);
   return (
     <div>
-      <div className="grid grid-cols-4 gap-4 py-4 items-center justify-center">
-        {filetrs.map((item, idx) => (
-          <div key={idx} className="mr-4 text-center">
+      {loading && (
+        <div className="flex items-center justify-center">
+          <Loader />
+        </div>
+      )}
+      <div className="grid gap-4 py-4 items-center justify-center lg:grid-cols-4 md:grid-cols-3">
+        {filters.map((item, idx) => (
+          <div key={idx} className="text-center md:mr-4">
             <Link to={`/filters/${item}`}>
               <Button
                 color="gray"
-                size="lg"
                 variant="outlined"
                 ripple={true}
-                className="hover:bg-green-300 duration-300 ease-in-out"
-                // onClick={() => dispatch(filterProducts(item))}
+                className="hover:bg-green-300 duration-300 text-sm ease-in-out "
               >
                 {item}
               </Button>
             </Link>
           </div>
         ))}
-        {/* {btn.map((item, idx) => (
-          <div key={idx} className="mr-4">
-            <Link to={`/filters/${item}`}>
-              <Button
-                color="gray"
-                size="lg"
-                variant="outlined"
-                ripple={true}
-                className="hover:bg-green-300 duration-300 ease-in-out"
-                // onClick={() => dispatch(filterProducts(item))}
-              >
-                {item}
-              </Button>
-            </Link>
-          </div>
-        ))} */}
       </div>
       <div className="bg-green-300 p-2 w-[55%] mx-auto rounded-md tracking-normal leading-none">
-        <h3 className="text-orange-900 text-center text-lg font-inter font-bold">
+        <h3 className="text-orange-900 text-center font-inter font-bold lg:text-lg sm:text-base">
           SALES UP TO 50%
         </h3>
       </div>
-      <div className="flex justify-center items-center py-4">
+      <div className="flex justify-center items-center p-4">
         <img
-          className="h-[600px] w-[70%] rounded-md shadow-lg shadow-gray-600"
+          className="h-full w-full rounded-md shadow-lg shadow-gray-600"
           src={clothes}
           alt="clothes"
         />
